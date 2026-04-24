@@ -2,6 +2,16 @@ import { describe, expect, it } from "vitest";
 import { pipe } from "fp-ts/function";
 import * as O from "fp-ts/Option";
 
+/**
+ * Option represents a value that can either be present (Some) or absent (None). It is a powerful
+ * tool for modeling computations that can fail or return no value. The Option type is a sum type,
+ * which means it can be one of two cases: Some or None. The Some case contains a value, while the
+ * None case represents the absence of a value.
+ *
+ * The Option type provides several useful functions for working with optional values, such as map,
+ * flatMap, match, and getOrElse. These functions allow you to transform and manipulate optional
+ * values in a safe and composable way.
+ */
 describe("Option", () => {
   it("represents presence with Some and absence with None", () => {
     expect(O.some("hello")).toEqual({ _tag: "Some", value: "hello" });

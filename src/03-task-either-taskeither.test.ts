@@ -3,6 +3,7 @@ import { pipe } from "fp-ts/function";
 import * as E from "fp-ts/Either";
 import * as T from "fp-ts/Task";
 import * as TE from "fp-ts/TaskEither";
+import { sequenceS } from "fp-ts/Apply";
 
 /**
  * Either is a type that represents a value that can be one of two cases: Left or Right. The Left
@@ -189,5 +190,44 @@ describe("TaskEither", () => {
     expect(await program("2")()).toBe("result: 5");
     expect(await program("-1")()).toBe("error: negative number");
     expect(await program("abc")()).toBe("error: invalid number");
+  });
+
+  /**
+   * flatMap is meant for chaining dependent computations, but another common pattern is where
+   * multiple independent computations need to be run in parallel and their results combined.
+   */
+  it("combines independent TaskEithers with sequenceS", async () => {
+    const fetchUser = TE.right({ id: 1 });
+    const fetchSettings = TE.right({ theme: "dark" });
+
+    const result = await pipe(
+      {
+        user: fetchUser,
+        settings: fetchSettings,
+      },
+      // ApplicativePar makes sequenceS run the TaskEithers in parallel. This would be the
+      // equivalent of using Promise.all. If we were to use sequenceS(TE.ApplicativeSeq), the
+      // TaskEithers would run sequentially, which is the equivalent of using await on each one.
+      // Although this would not feed the result of one TaskEither into the next, as flatMap does.
+      sequenceS(TE.ApplicativePar), // await Promise.all([fetchUser, fetchSettings]);
+      // sequenceS(TE.ApplicativeSeq), // [await fetchUser, await fetchSettings];
+    )();
+
+    expect(result).toEqual(
+      E.right({
+        user: { id: 1 },
+        settings: { theme: "dark" },
+      }),
+    );
+  });
+
+  it("fails if any independent computation fails", async () => {
+    const ok = TE.right<string, number>(1);
+    const fail = TE.left<string, number>("boom");
+
+    // Works identically with TE.ApplicativeSeq
+    const result = await pipe({ ok, fail }, sequenceS(TE.ApplicativePar))();
+
+    expect(result).toEqual(E.left("boom"));
   });
 });

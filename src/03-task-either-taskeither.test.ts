@@ -161,8 +161,11 @@ describe("TaskEither", () => {
   });
 
   it("models a real async flow", async () => {
-    const parseInput = (s: string): E.Either<string, number> =>
-      isNaN(Number(s)) ? E.left("invalid number") : E.right(Number(s));
+    const parseInput = (s: string): E.Either<string, number> => {
+      const parsed = Number(s);
+
+      return Number.isNaN(parsed) ? E.left("invalid number") : E.right(parsed);
+    };
 
     const fetchFromApi = (n: number): TE.TaskEither<string, number> =>
       n > 0 ? TE.right(n * 2) : TE.left("negative number");

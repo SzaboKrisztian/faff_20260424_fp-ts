@@ -48,13 +48,13 @@ pnpm install
 Run all lessons:
 
 ```bash
-pnpm test
+pnpm all
 ```
 
-Run the first lesson only:
+Run only one particular lesson:
 
 ```bash
-pnpm test1
+pnpm lesson3
 ```
 
 ## How To Use This Repo

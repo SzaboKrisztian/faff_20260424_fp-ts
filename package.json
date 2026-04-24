@@ -4,8 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "test": "vitest",
-    "test1": "vitest --run 01-pipe-and-flow.test.ts"
+    "all": "vitest --run",
+    "lesson1": "vitest --run 01-pipe-and-flow.test.ts",
+    "lesson2": "vitest --run 02-option-map-flatmap-match.test.ts",
+    "lesson3": "vitest --run 03-task-either-taskeither.test.ts",
+    "lesson4": "vitest --run 04-array.test.ts",
+    "lesson5": "vitest --run 05-validation.test.ts",
+    "lesson6": "vitest --run 06-do-bind-aps.test.ts"
   },
   "dependencies": {
     "fp-ts": "^2.16.11"

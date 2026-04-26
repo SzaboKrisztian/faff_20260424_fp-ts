@@ -10,7 +10,8 @@
     "lesson3": "vitest --run 03-task-either-taskeither.test.ts",
     "lesson4": "vitest --run 04-array.test.ts",
     "lesson5": "vitest --run 05-validation.test.ts",
-    "lesson6": "vitest --run 06-do-bind-aps.test.ts"
+    "lesson6": "vitest --run 06-do-bind-aps.test.ts",
+    "lesson7": "vitest --run 07-reader-and-dependency-injection.test.ts"
   },
   "dependencies": {
     "fp-ts": "^2.16.11"

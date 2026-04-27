@@ -12,7 +12,8 @@
     "lesson5": "vitest --run 05-validation.test.ts",
     "lesson6": "vitest --run 06-do-bind-aps.test.ts",
     "lesson7": "vitest --run 07-reader-and-dependency-injection.test.ts",
-    "lesson8": "vitest --run 08-eq-ord-monoid.test.ts"
+    "lesson8": "vitest --run 08-eq-ord-monoid.test.ts",
+    "lesson9": "vitest --run 09-io-and-side-effects.test.ts"
   },
   "dependencies": {
     "fp-ts": "^2.16.11"
